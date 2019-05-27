@@ -1,0 +1,37 @@
+plugins {
+    id 'java-library'
+	id 'eclipse'
+	id 'me.champeau.gradle.jmh' version '0.4.8'
+}
+
+repositories {
+    jcenter()
+}
+
+dependencies {
+	compile 'org.apache.commons:commons-lang3:3.9'
+	compile 'org.apache.commons:commons-text:1.6'
+	compile 'com.google.guava:guava:27.1-jre'
+	testCompile 'junit:junit:4.12'
+}
+
+sourceSets {
+	jmh
+}
+
+jmh {
+	benchmarkMode = ['avgt']
+	
+	iterations = 5
+	timeOnIteration = '4s'
+	fork = 1
+	
+	warmupIterations = 1
+	warmup = '2s'
+	warmupForks = 0
+	
+	timeUnit = 'ms'
+	verbosity = 'NORMAL'
+	
+	exclude = ['IterableToArrayBenchmark', 'StringIterationBenchmark']
+}
